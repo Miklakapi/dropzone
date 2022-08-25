@@ -66,7 +66,7 @@ function insertFilesToInput($dropzone) {
         data.items.add(allFiles[target][$(file).attr('id').split('-')[2]]);
     });
     
-    document.querySelector(`#${target}`).files = data.files;
+    $(`#${target}`).prop('files', data.files);
 }
 
 export {
