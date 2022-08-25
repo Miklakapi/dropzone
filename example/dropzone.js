@@ -7,6 +7,22 @@ function init(dropzoneClass='dropzone', limit=-1) {
 
     }).on('click', `.${dropzoneClass}`, function () {
         $(`#${$(this).data('target')}`).trigger('click');
+    }).on('change', 'input[type="file"]', function () {
+        const $input = $(this);
+        if ($input.hasClass(`${dropzoneClass}-on`)) {
+            const newFiles = $input.prop('files');
+            const target = $input.attr('id');
+            const $dropzone = $(`[data-target="${target}"].${dropzoneClass}`);
+            
+            for (let i = 0; i < newFiles.length; i++) {
+                if (limit === -1 || $dropzone.find('.file').length < limit) {
+                    const file = newFiles.item(i);
+                    $dropzone.append(newFile(target, file));
+                    allFiles[target].push(file);
+                    insertFilesToInput($dropzone);
+                } else break;
+            }
+        }
     }).on('dragover', `.${dropzoneClass}`, function (event) {
         event.preventDefault();
         event.stopPropagation();
@@ -24,7 +40,6 @@ function init(dropzoneClass='dropzone', limit=-1) {
             $(this).append(newFile(target, ...event.originalEvent.dataTransfer.files));
             allFiles[target].push(...event.originalEvent.dataTransfer.files);
             insertFilesToInput($(this));
-            $(this).find('.placeholder').addClass('d-none');
         }
     }).on('click', `.${dropzoneClass} > .file`, function (event) {
         event.preventDefault();
@@ -35,7 +50,6 @@ function init(dropzoneClass='dropzone', limit=-1) {
         $(this).remove();
         allFiles[target][id] = null;
         insertFilesToInput($(parent));
-        $(parent).find('.file').length || parent.find('.placeholder').removeClass('d-none');
     });
 }
 
@@ -67,6 +81,9 @@ function insertFilesToInput($dropzone) {
     });
     
     $(`#${target}`).prop('files', data.files);
+
+    if ($dropzone.find('.file').length) $dropzone.find('.placeholder').addClass('d-none');
+    else $dropzone.find('.placeholder').removeClass('d-none');
 }
 
 export {

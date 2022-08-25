@@ -2,4 +2,4 @@
 
 import { initDropzones } from './dropzone.js';
 
-initDropzones('dropzone', 3);
+initDropzones('dropzone', 4);
