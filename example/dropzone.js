@@ -23,23 +23,18 @@ function init(dropzoneClass='dropzone', limit=-1) {
         if (limit === -1 || $(this).find('.file').length < limit) {
             $(this).append(newFile(target, ...event.originalEvent.dataTransfer.files));
             allFiles[target].push(...event.originalEvent.dataTransfer.files);
-            const data = new DataTransfer();
-            allFiles[target].forEach(function (file) {
-                if (file !== null) {
-                    data.items.add(file);
-                }
-            });
+            insertFilesToInput($(this));
             $(this).find('.placeholder').addClass('d-none');
-            document.querySelector(`#${target}`).files = data.files;
         }
     }).on('click', `.${dropzoneClass} > .file`, function (event) {
         event.preventDefault();
         event.stopPropagation();
-        const id = (($(this).attr('id')).split('-'))[2];
+        const id = ($(this).attr('id')).split('-')[2];
         const parent = $(this).parent();
         const target = parent.data('target');
         $(this).remove();
         allFiles[target][id] = null;
+        insertFilesToInput($(parent));
         $(parent).find('.file').length || parent.find('.placeholder').removeClass('d-none');
     });
 }
@@ -56,11 +51,22 @@ function newFile(target, ...files) {
         htmlFiles += `
         <div class="file" id="file-id-${id}">
             <div class="name">${fileName}</div>
-            <div class="size">${fileSize}</div>
+            <div class="size">${fileSize} MB</div>
         </div>`;
         id++;
     });
     return htmlFiles;
+}
+
+function insertFilesToInput($dropzone) {
+    const data = new DataTransfer();
+    const target = $dropzone.data('target');
+
+    $dropzone.find('.file').each(function (index, file) {
+        data.items.add(allFiles[target][$(file).attr('id').split('-')[2]]);
+    });
+    
+    document.querySelector(`#${target}`).files = data.files;
 }
 
 export {
