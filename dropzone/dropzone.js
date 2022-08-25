@@ -1,5 +1,3 @@
-'use strict';
-
 const allFiles = {};
 
 function init(dropzoneClass='dropzone', limit=-1) {
