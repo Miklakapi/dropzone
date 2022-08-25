@@ -49,7 +49,7 @@ function newFile(target, ...files) {
         const fileName = file.name;
         const fileSize = (file.size / (1024 * 1024)).toFixed(2);
         htmlFiles += `
-        <div class="file" id="file-id-${id}">
+        <div class="file" id="file-id-${id}" title="${fileName}">
             <div class="name">${fileName}</div>
             <div class="size">${fileSize} MB</div>
         </div>`;
