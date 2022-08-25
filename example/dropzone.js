@@ -2,9 +2,9 @@
 
 const allFiles = {};
 
-function init(dropzoneClass='dropzone') {
+function init(dropzoneClass='dropzone', limit=-1) {
     $(document).ready(function () {
-        console.log('Initiation dropzone...');
+
     }).on('click', `.${dropzoneClass}`, function () {
         $(`#${$(this).data('target')}`).trigger('click');
     }).on('dragover', `.${dropzoneClass}`, function (event) {
@@ -20,16 +20,18 @@ function init(dropzoneClass='dropzone') {
         event.stopPropagation();
         $(this).removeClass(`${dropzoneClass}-hover`);
         const target = $(this).data('target');
-        $(this).append(newFile(target, ...event.originalEvent.dataTransfer.files));
-        allFiles[target].push(...event.originalEvent.dataTransfer.files);
-        const data = new DataTransfer();
-        allFiles[target].forEach(function (file) {
-            if (file !== null) {
-                data.items.add(file);
-            }
-        });
-        $(this).find('.placeholder').addClass('d-none');
-        document.querySelector(`#${target}`).files = data.files;
+        if (limit === -1 || $(this).find('.file').length < limit) {
+            $(this).append(newFile(target, ...event.originalEvent.dataTransfer.files));
+            allFiles[target].push(...event.originalEvent.dataTransfer.files);
+            const data = new DataTransfer();
+            allFiles[target].forEach(function (file) {
+                if (file !== null) {
+                    data.items.add(file);
+                }
+            });
+            $(this).find('.placeholder').addClass('d-none');
+            document.querySelector(`#${target}`).files = data.files;
+        }
     }).on('click', `.${dropzoneClass} > .file`, function (event) {
         event.preventDefault();
         event.stopPropagation();
@@ -38,15 +40,7 @@ function init(dropzoneClass='dropzone') {
         const target = parent.data('target');
         $(this).remove();
         allFiles[target][id] = null;
-        let counter = 0;
-        allFiles[target].forEach(function (file) {
-            if (file !== null) {
-                counter++;
-            }
-        });
-        if (counter === 0) {
-            parent.find('.placeholder').removeClass('d-none');
-        }
+        $(parent).find('.file').length || parent.find('.placeholder').removeClass('d-none');
     });
 }
 
