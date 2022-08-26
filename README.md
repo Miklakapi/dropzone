@@ -17,7 +17,7 @@ A simple module for creating a dropzone that does not send Ajax data, but stores
 * [Status](#status)
 
 ## General info
-A simple module written in Jquery. Makes it easier to create a dropzone. It is based on transferring files to input and not sending them immediately with Ajax.
+A simple module written in Jquery. Makes it easier to create a dropzone. It is based on transferring files to input and not sending them immediately with Ajax. Provides the ability to manipulate the content of input: Adding and Removing selected files. With it, you can hide the input and style the given HTML element to be a dropzone.
 
 ## Technologies
 Project is created with:
