@@ -7,7 +7,7 @@
 ![version](https://img.shields.io/badge/version-1.0.0-success)
 ![status](https://img.shields.io/badge/status-test-red)
 
-###################
+A simple module for creating a dropzone that does not send Ajax data, but stores it in an input.
 
 ## Table of Contents
 * [General info](#general-info)
@@ -29,11 +29,12 @@ Project is created with:
 ###################
 
 ## Features
-###################
+- Assign new files to input by dragging and dropping or using a file explorer window.
+- Show files as html objects.
+- Display of file name and size.
+- Limiting the number of files.
+- Delete files by clicking on it.
+- Adding multiple independent dropzons.
 
 ## Status
-The project's in the testing phase.
-
-## TODO:
-* README
-* Test dropzone
+The project's development has been completed.
