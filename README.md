@@ -5,7 +5,7 @@
 ![language](https://img.shields.io/badge/language-JavaScript-yellow)
 ![language](https://img.shields.io/badge/language-jQuery-informational)
 ![version](https://img.shields.io/badge/version-1.0.0-success)
-![status](https://img.shields.io/badge/status-testing-red)
+![status](https://img.shields.io/badge/status-production-green)
 
 A simple module for creating a dropzone that does not send Ajax data, but stores it in an input.
 
@@ -34,7 +34,7 @@ Project is created with:
 - Display of file name and size.
 - Limiting the number of files.
 - Delete files by clicking on it.
-- Adding multiple independent dropzons.
+- Adding multiple independent dropzones.
 
 ## Status
 The project's development has been completed.
