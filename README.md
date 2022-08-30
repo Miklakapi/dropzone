@@ -26,7 +26,27 @@ Project is created with:
 * JQuery 3.6.0
 
 ## Setup
-###################
+Initialize dropzone:
+```js
+import { initDropzones } from './dropzone.js';
+
+// dropzone - The class of the dropzone
+// fileLimit - File limit (-1 = no limit)
+initDropzones('dropzone', fileLimit);
+```
+An example template:
+```html
+<!-- 
+    data-target - Input id
+    "dropzone-on" (constant name)- Information that input uses a dropzone
+    "dropzone" - The class that is passed to the js function
+    "placeholder" (constant name) - The object that holds the temporary dropzone content
+ -->
+<input multiple type="file" id="main-files" class="dropzone-on">
+<div class="dropzone" data-target="main-files">
+    <div class="placeholder">Drag and Drop</div>
+</div>
+```
 
 ## Features
 - Assign new files to input by dragging and dropping or using a file explorer window.
